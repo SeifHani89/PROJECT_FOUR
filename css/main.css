@@ -1,0 +1,116 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.start-game {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #626262bc;
+    z-index: 100;
+    font-size: 24px;
+    font-weight: bold;
+    .start {
+        background-color: orange;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+    form {
+        display: none;
+        input {
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            &:focus {
+                outline: none;
+                caret-color: orange;
+            }
+            &[type ="submit"] {
+                background-color: orange;
+                color: white;
+                font-weight: bold;
+            }
+        }
+    }
+}
+.container {
+    width: 1000px;
+    margin: 20px auto;
+    .game-info {
+        width: 100%;
+        padding: 20px;
+        font-size: 20px;
+        margin-bottom: 20px;
+        background-color: #ebebeb;
+        border: 2px solid rgb(0, 238, 255);
+        display: flex;
+        justify-content: space-between;
+        .name {
+            span {
+                font-weight: bold;
+    
+            }
+        }
+    }
+    .game-space {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        &.no-clicking {
+            pointer-events: none;
+        }
+    }
+}
+/* How To Create a Flip Card */
+.box {
+    position: relative;
+    flex-basis: 100px;
+    height: 100px;
+    perspective: 1000px;
+    background-color: transparent;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+    border: 2px solid rgb(0, 238, 255);
+    &.flipped, &.matched {
+        transform: rotateY(180deg);
+        pointer-events: none;
+    }
+    .front, .back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+    .front {
+        background-color: #bbb;
+        color: white;
+        font-size: 80px;
+        font-weight: bold;
+    }
+    
+    .back {
+        color: white;
+        transform: rotateY(180deg);
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
