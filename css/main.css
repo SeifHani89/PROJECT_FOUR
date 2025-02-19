@@ -58,9 +58,34 @@ body {
         display: flex;
         justify-content: space-between;
         .name {
+            display: flex;
+            align-items: center;
+            .avatar {
+                margin-right: 10px;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                position: relative;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    width: inherit;
+                    height: inherit;
+                    border: 3px solid rgb(0, 51, 255);
+                    border-radius: 50%;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    animation: focus 1s  infinite;
+                }
+                img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                }
+            }
             span {
                 font-weight: bold;
-    
             }
         }
     }
@@ -72,6 +97,13 @@ body {
         &.no-clicking {
             pointer-events: none;
         }
+    }
+}
+@keyframes focus {
+    to {
+        width: 35px;
+        height: 35px;
+        border-color: transparent
     }
 }
 /* How To Create a Flip Card */
@@ -111,6 +143,33 @@ body {
         img {
             width: 100%;
             height: 100%;
+        }
+    }
+}
+
+.choose-avatar {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #626262bc;
+    z-index: 2;
+    display: none;
+    .avatar-container{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 50px;
+        text-align: center;
+        img {
+            width: 120px;
+            border-radius: 50%;
+            margin-right: 20px;
+            cursor: pointer;
         }
     }
 }

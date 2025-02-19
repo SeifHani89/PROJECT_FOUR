@@ -27,6 +27,27 @@ document.querySelector(".start-game .start").onclick = function() {
 
 // ==========================================
 
+// choosing avatar
+let myAvatar = document.querySelector(".avatar")
+let avatarBox = document.querySelector(".choose-avatar")
+myAvatar.addEventListener("click", function(){
+    if(avatarBox.style.display = "none") {
+        avatarBox.style.display = "block"
+    }
+    const avatrImgs = document.querySelectorAll(".choose-avatar img")
+    const avatrImgsArr = Array.from(avatrImgs)
+    avatrImgsArr.forEach((img) => {
+        img.onclick = function() {
+            myAvatar.children[0].remove()
+            myAvatar.append(img)
+            avatarBox.remove();
+            myAvatar.style.pointerEvents = "none"
+        }
+    })
+})
+
+// ==========================================
+
 let cardFront = document.querySelectorAll(".front");
 cardFront.forEach(function(card) {
     card.innerHTML = '?'
