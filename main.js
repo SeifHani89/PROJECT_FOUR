@@ -17,10 +17,11 @@
 
 document.querySelector(".start-game .start").onclick = function() {
     let yourName =  prompt("What's Your Name");
+    window.localStorage.setItem("name", yourName)
     if (yourName === null || yourName === "") {
         document.querySelector(".name span").innerHTML = "Unknown"
     } else {
-        document.querySelector(".name span").innerHTML =  yourName;
+        document.querySelector(".name span").innerHTML = window.localStorage.getItem("name");
     }
     document.querySelector(".start-game").remove()
 }
@@ -31,9 +32,7 @@ document.querySelector(".start-game .start").onclick = function() {
 let myAvatar = document.querySelector(".avatar")
 let avatarBox = document.querySelector(".choose-avatar")
 myAvatar.addEventListener("click", function(){
-    if(avatarBox.style.display = "none") {
-        avatarBox.style.display = "block"
-    }
+    avatarBox.style.display = "block"
     const avatrImgs = document.querySelectorAll(".choose-avatar img")
     const avatrImgsArr = Array.from(avatrImgs)
     avatrImgsArr.forEach((img) => {
@@ -116,16 +115,23 @@ function stopClicking() {
 function checkMatchBlocks(firstBlock, secondBlock) {
     // determining number of tries
     const numOfTries = document.querySelector(".tries span")
-
     if(firstBlock.innerHTML !== secondBlock.innerHTML)  {
-        numOfTries.innerHTML = parseInt(numOfTries.innerHTML) + 1
+        numOfTries.innerHTML = parseInt(numOfTries.innerHTML) - 1
+        
+        // failing message 
+        setTimeout(() => {
+            if (numOfTries.innerHTML === "0") {
+                let myMsg = document.querySelector("div");
+                myMsg.classList.add("msg", "failing")
 
+                myMsg.innerHTML = `<div class="icon"><i class="fa-solid fa-xmark"></i></div><span>Sorry! Your Tries Is Finished</span><button onclick="location.reload()">Play Again</button>`;
+                document.body.append(myMsg)
+            }
+        }, 500);
+        
         setTimeout(() => {
             firstBlock.classList.remove("flipped")
             secondBlock.classList.remove("flipped")
-            
-            // playing fail audio
-            document.getElementById("fail").play();
         }, duration);
 
     }else {
@@ -137,9 +143,17 @@ function checkMatchBlocks(firstBlock, secondBlock) {
 
         // playing success audio
         document.getElementById("success").play();
-        
+
+        setTimeout(() => {
+            if (blocksArr.every(block => block.classList.contains("matched"))) {
+            let myMsg = document.createElement("div");
+            myMsg.classList.add("msg", "fail")
+            myMsg.innerHTML = `<div class="icon"><i class="fa-solid fa-check"></i></div><span>Congrats! You Won</span><button onclick="location.reload()">Play Again</button>`;
+            }
+        }, 500);
     }
 }
+
 
 blocksArr.forEach((block) => {
     if (block.classList.contains("matched" === true)){
